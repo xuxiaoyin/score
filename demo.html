@@ -11,6 +11,30 @@
 </style>
 <script>
 $(function(){
+	var onOff=true;
+	$('span').mouseover(function(){
+		$(this).add($(this).prevAll('span')).css('background','red');
+		$(this).nextAll('span').css('background','#ddd');
+	}).mouseout(function(){
+		if(onOff){
+			$('span').css('background','#ddd');
+		}else{
+			$('.active').nextAll('span').css('background','#ddd');
+			$('.active').add($('.active').prevAll('span')).css('background','red');
+		}				
+	});
+
+		$('span').click(function(){
+			if(onOff){
+				$('span').removeClass('active');
+				$(this).addClass('active');
+				$(this).add($(this).prevAll('span')).css('background','red');
+				$(this).nextAll('span').css('background','#ddd');
+			};
+			onOff=false;
+			
+	})
+
 	
 })
 </script>
