@@ -12,30 +12,25 @@
 <script>
 $(function(){
 	var onOff=true;
+	var timer=null;
 	$('span').mouseover(function(){
-		$(this).add($(this).prevAll('span')).css('background','red');
-		$(this).nextAll('span').css('background','#ddd');
-	}).mouseout(function(){
+		clearTimeout(timer);
 		if(onOff){
-			$('span').css('background','#ddd');
-		}else{
-			$('.active').nextAll('span').css('background','#ddd');
-			$('.active').add($('.active').prevAll('span')).css('background','red');
-		}				
+			$(this).add($(this).prevAll('span')).css('background','red');
+			$(this).nextAll('span').css('background','#ddd');
+		}
+			
+	}).mouseout(function(){
+		timer=setTimeout(function(){
+			if(onOff){
+				$('span').css('background','#ddd');	
+			}
+		},100);		
+	}).click(function(){
+			onOff=false;		
 	});
 
-		$('span').click(function(){
-			if(onOff){
-				$('span').removeClass('active');
-				$(this).addClass('active');
-				$(this).add($(this).prevAll('span')).css('background','red');
-				$(this).nextAll('span').css('background','#ddd');
-			};
-			onOff=false;
-			
-	})
-
-	
+		
 })
 </script>
 <body>
@@ -46,5 +41,7 @@ $(function(){
 		<span></span>
 		<span></span>
 	</div>
+	
+	
 </body>
 </html>
